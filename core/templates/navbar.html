@@ -1,0 +1,37 @@
+<nav class="flex items-center justify-between flex-wrap bg-blue-900 p-6 px-10">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-xl tracking-tight"><a href="/" class="text-white">Library Management System</a></span>
+    </div>
+    <div class="block lg:hidden">
+        <button class="flex items-center px-3 py-2 border rounded text-white border-white-400 hover:text-white hover:border-white focus:outline-none">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+    </div>
+
+
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto px-10">
+        <div class="text-sm lg:flex-grow">
+            <a href="{% url "homepage" %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                Home
+            </a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url "deposite" %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4">
+                    Deposit
+                </a>
+            {% endif %}
+        </div>
+        
+        {% if request.user.is_authenticated %}
+            <div class="flex items-center">
+                <div class="text-blue-200 my-auto font-black px-5">Welcome, {{ request.user.first_name }} (balance: {{ request.user.account.balance }})</div>
+                <a href="{% url "profile" %}" class="mx-2 inline-block text-sm px-4 py-2 leading-none bg-white text-blue-900 rounded-full border-blue-900 hover:border-transparent hover:text-white hover:bg-blue-900">Profile</a>
+                <a href="{% url "logout" %}" class="mx-2 inline-block text-sm px-4 py-2 leading-none bg-white text-blue-900 rounded-full border-blue-900 hover:border-transparent hover:text-white hover:bg-blue-900">Logout</a>
+            </div>
+        {% else %}
+            <div class="flex items-center">
+                <a href="{% url "login" %}" class="mr-2 inline-block text-sm px-4 py-2 leading-none bg-white text-blue-900 rounded-full border-blue-900 hover:border-transparent hover:text-white hover:bg-blue-900">Login</a>
+                <a href="{% url "register" %}" class="mr-2 inline-block text-sm px-4 py-2 leading-none bg-white text-blue-900 rounded-full border-blue-900 hover:border-transparent hover:text-white hover:bg-blue-900">Register</a>
+            </div>
+        {% endif %}
+    </div>
+</nav>
